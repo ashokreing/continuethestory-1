@@ -4,7 +4,7 @@ function StoryViewer() {
   const [story, setStory] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:5001/api/current-story')
+    fetch('/api/current-story')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -24,6 +24,7 @@ function StoryViewer() {
 }
 
 export default StoryViewer;
+
 
 
 
