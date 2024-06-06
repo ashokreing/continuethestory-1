@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Oooh+Baby&display=swap'); /* Asegúrate de que coincida con la importación en el index.html */
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black; /* Color de fondo */
+  color: white; /* Color del texto */
+  font-family: 'Roboto', sans-serif; /* Fuente para el cuerpo del texto */
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  background-color: black; /* Fondo del encabezado */
+  font-family: 'Roboto', sans-serif; /* Fuente para el párrafo */
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+  margin-bottom: 40px; /* Espacio debajo del encabezado */
+}
+
+.header h1 {
+  margin: 0;
+  font-family: 'Oooh Baby', cursive; /* Fuente para el h1 */
+  font-size: 5em; /* Tamaño más grande */
+  font-weight: 700; /* Negrita */
+}
+
+.header p {
+  font-family: 'Oooh Baby', cursive;
+  margin: 10px 0 0 0; /* Espaciado entre h1 y p */
+  font-size: 1.5em;
+}
+
+.App {
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 8px;
+
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #333; /* Fondo del textarea */
+  color: white;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Añadir los estilos para el contador de caracteres */
+#write-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#write-section textarea {
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #333; /* Fondo del textarea */
+  color: white;
+}
+
+#write-section input {
+  width: 50%;
+  padding: 10px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #333; /* Fondo del input */
+  color: white;
+}
+
+#write-section div {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #ccc;
+  margin-top: 30px;
+}
+
+#write-section button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#write-section button:hover {
+  background-color: #45a049;
+}
+
+#write-section .character-counter {
+  margin-top: 10px; /* Ajusta el margen superior para separarlo del textarea */
+  margin-bottom: 10px; /* Ajusta el margen inferior si es necesario */
+}
+
