@@ -47,15 +47,35 @@ app.post('/api/submit-part', (req, res) => {
     });
 });
 
-app.get('/api/test', (req, res) => {
-  console.log('Test endpoint hit');
-  res.status(200).json({ message: 'Test endpoint is working' });
+app.get('/api/current-story', (req, res) => {
+  console.log('Request received at /api/current-story');
+  Story.findOne({}, {}, { sort: { 'createdAt': -1 } })
+    .then(story => {
+      if (!story) {
+        console.log('No story found');
+        return res.status(404).json({ message: 'No story found' });
+      }
+      console.log('Story found:', story.part);
+      res.status(200).json({ currentPart: story.part });
+    })
+    .catch(err => {
+      console.error('Error fetching story:', err);
+      res.status(500).json({ message: 'Failed to fetch story.', error: err });
+    });
 });
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// Endpoint de prueba
+app.get('/api/test', (req, res) => {
+  console.log('Test endpoint hit');
+  res.status(200).json({ message: 'Test endpoint is working' });
+});
+
+
 
 
 
