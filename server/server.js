@@ -51,8 +51,10 @@ app.get('/api/current-story', (req, res) => {
   Story.findOne({}, {}, { sort: { 'createdAt': -1 } })
     .then(story => {
       if (!story) {
+        console.log('No story found');
         return res.status(404).json({ message: 'No story found' });
       }
+      console.log('Story found:', story.part);
       res.status(200).json({ currentPart: story.part });
     })
     .catch(err => {
