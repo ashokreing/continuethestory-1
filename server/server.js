@@ -47,9 +47,9 @@ app.post('/api/submit-part', (req, res) => {
     });
 });
 
-app.get('/api/current-story', (req, res) => {
-  console.log('Forzando un error para propósitos de logging');
-  res.status(500).json({ message: 'Forced error for logging purposes.' });
+app.get('/api/test', (req, res) => {
+  console.log('Test endpoint hit');
+  res.status(200).json({ message: 'Test endpoint is working' });
 });
 
 const PORT = process.env.PORT || 5001;
