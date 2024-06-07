@@ -4,17 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
 
-const app = express();
-app.use(bodyParser.json());
-app.use(cors());
-
-const Story = mongoose.model('Story', new mongoose.Schema({
-  part: String,
-  name: String,
-  email: String,
-  createdAt: { type: Date, default: Date.now }
-}));
-
+// Conexión a MongoDB
 const uri = process.env.MONGODB_URI;
 console.log('MONGODB_URI:', uri);
 
@@ -27,53 +17,56 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-app.post('/api/submit-part', (req, res) => {
-  const { part, name, email } = req.body;
+// Modelo de historia
+const Story = mongoose.model('Story', new mongoose.Schema({
+  part: String,
+  name: String,
+  email: String,
+  createdAt: { type: Date, default: Date.now },
+}));
 
-  const newPart = new Story({
-    part,
-    name,
-    email
-  });
+// Funciones para Vercel
+module.exports = {
+  // Función para procesar solicitudes POST a '/api/submit-part'
+  async submitPart(req, res) {
+    const { part, name, email } = req.body;
 
-  newPart.save()
-    .then(() => {
+    const newPart = new Story({
+      part,
+      name,
+      email,
+    });
+
+    try {
+      await newPart.save();
       console.log('Part saved successfully');
       res.status(201).json({ message: 'Part saved successfully.' });
-    })
-    .catch(err => {
+    } catch (err) {
       console.error('Error saving part:', err);
       res.status(500).json({ message: 'Failed to save part.', error: err });
-    });
-});
+    }
+  },
 
-app.get('/api/current-story', (req, res) => {
-  console.log('Request received at /api/current-story');
-  Story.findOne({}, {}, { sort: { 'createdAt': -1 } })
-    .then(story => {
+  // Función para procesar solicitudes GET a '/api/current-story'
+  async currentStory(req, res) {
+    console.log('Request received at /api/current-story');
+
+    try {
+      const story = await Story.findOne({}, {}, { sort: { 'createdAt': -1 } });
       if (!story) {
         console.log('No story found');
         return res.status(404).json({ message: 'No story found' });
       }
       console.log('Story found:', story.part);
       res.status(200).json({ currentPart: story.part });
-    })
-    .catch(err => {
+    } catch (err) {
       console.error('Error fetching story:', err);
       res.status(500).json({ message: 'Failed to fetch story.', error: err });
-    });
-});
+    }
+  },
+};
 
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
 
-// Endpoint de prueba
-app.get('/api/test', (req, res) => {
-  console.log('Test endpoint hit');
-  res.status(200).json({ message: 'Test endpoint is working' });
-});
 
 
 
