@@ -48,6 +48,7 @@ app.post('/api/submit-part', (req, res) => {
 });
 
 app.get('/api/current-story', (req, res) => {
+  console.log('Request received at /api/current-story');
   Story.findOne({}, {}, { sort: { 'createdAt': -1 } })
     .then(story => {
       if (!story) {
