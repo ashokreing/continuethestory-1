@@ -48,26 +48,15 @@ app.post('/api/submit-part', (req, res) => {
 });
 
 app.get('/api/current-story', (req, res) => {
-  console.log('Request received at /api/current-story');
-  Story.findOne({}, {}, { sort: { 'createdAt': -1 } })
-    .then(story => {
-      if (!story) {
-        console.log('No story found');
-        return res.status(404).json({ message: 'No story found' });
-      }
-      console.log('Story found:', story.part);
-      res.status(200).json({ currentPart: story.part });
-    })
-    .catch(err => {
-      console.error('Error fetching story:', err);
-      res.status(500).json({ message: 'Failed to fetch story.', error: err });
-    });
+  console.log('Forzando un error para propósitos de logging');
+  res.status(500).json({ message: 'Forced error for logging purposes.' });
 });
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
 
 
