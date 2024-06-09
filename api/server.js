@@ -1,6 +1,5 @@
 console.log("Server.js is running");
 
-// Resto del código
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -67,13 +66,11 @@ app.get('/api/current-story', async (req, res) => {
   }
 });
 
-// Ruta de prueba para verificar que el servidor funciona
 app.get('/test', (req, res) => {
   console.log('GET /test called');
   res.status(200).send('Test route is working');
 });
 
-// Ruta de prueba para verificar la configuración de MongoDB
 app.get('/mongo-test', async (req, res) => {
   try {
     const story = await Story.findOne({}, {}, { sort: { 'createdAt': -1 } });
@@ -89,6 +86,7 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
+
 
 
 
