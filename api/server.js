@@ -1,3 +1,6 @@
+console.log("Server.js is running");
+
+// Resto del código
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -8,7 +11,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Conexión a MongoDB
 const uri = process.env.MONGODB_URI;
 console.log('MONGODB_URI:', uri);
 
@@ -21,7 +23,6 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// Modelo de historia
 const Story = mongoose.model('Story', new mongoose.Schema({
   part: String,
   name: String,
@@ -29,7 +30,6 @@ const Story = mongoose.model('Story', new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 }));
 
-// Ruta para procesar solicitudes POST a '/api/submit-part'
 app.post('/api/submit-part', async (req, res) => {
   console.log('POST /api/submit-part called');
   const { part, name, email } = req.body;
@@ -50,7 +50,6 @@ app.post('/api/submit-part', async (req, res) => {
   }
 });
 
-// Ruta para procesar solicitudes GET a '/api/current-story'
 app.get('/api/current-story', async (req, res) => {
   console.log('GET /api/current-story called');
 
@@ -68,12 +67,29 @@ app.get('/api/current-story', async (req, res) => {
   }
 });
 
+// Ruta de prueba para verificar que el servidor funciona
+app.get('/test', (req, res) => {
+  console.log('GET /test called');
+  res.status(200).send('Test route is working');
+});
+
+// Ruta de prueba para verificar la configuración de MongoDB
+app.get('/mongo-test', async (req, res) => {
+  try {
+    const story = await Story.findOne({}, {}, { sort: { 'createdAt': -1 } });
+    res.status(200).json({ message: 'MongoDB is connected and data fetched', story });
+  } catch (err) {
+    res.status(500).json({ message: 'MongoDB connection failed', error: err });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
 module.exports = app;
+
 
 
 
