@@ -8,7 +8,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Conexión a MongoDB
 const uri = process.env.MONGODB_URI;
 console.log('MONGODB_URI:', uri);
 
@@ -21,7 +20,6 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// Modelo de historia
 const Story = mongoose.model('Story', new mongoose.Schema({
   part: String,
   name: String,
@@ -29,8 +27,8 @@ const Story = mongoose.model('Story', new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 }));
 
-// Ruta para procesar solicitudes POST a '/api/submit-part'
 app.post('/api/submit-part', async (req, res) => {
+  console.log('POST /api/submit-part called');
   const { part, name, email } = req.body;
 
   const newPart = new Story({
@@ -49,9 +47,8 @@ app.post('/api/submit-part', async (req, res) => {
   }
 });
 
-// Ruta para procesar solicitudes GET a '/api/current-story'
 app.get('/api/current-story', async (req, res) => {
-  console.log('Request received at /api/current-story');
+  console.log('GET /api/current-story called');
 
   try {
     const story = await Story.findOne({}, {}, { sort: { 'createdAt': -1 } });
@@ -67,8 +64,27 @@ app.get('/api/current-story', async (req, res) => {
   }
 });
 
-// Exporta el servidor para que Vercel pueda manejar las rutas
+app.get('/test', (req, res) => {
+  console.log('GET /test called');
+  res.status(200).send('Test route is working');
+});
+
 module.exports = app;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
