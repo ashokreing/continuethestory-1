@@ -1,5 +1,3 @@
-console.log("Server.js is running");
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -10,6 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+// Conexión a MongoDB
 const uri = process.env.MONGODB_URI;
 console.log('MONGODB_URI:', uri);
 
@@ -63,20 +62,6 @@ app.get('/api/current-story', async (req, res) => {
   } catch (err) {
     console.error('Error fetching story:', err);
     res.status(500).json({ message: 'Failed to fetch story.', error: err });
-  }
-});
-
-app.get('/test', (req, res) => {
-  console.log('GET /test called');
-  res.status(200).send('Test route is working');
-});
-
-app.get('/mongo-test', async (req, res) => {
-  try {
-    const story = await Story.findOne({}, {}, { sort: { 'createdAt': -1 } });
-    res.status(200).json({ message: 'MongoDB is connected and data fetched', story });
-  } catch (err) {
-    res.status(500).json({ message: 'MongoDB connection failed', error: err });
   }
 });
 
