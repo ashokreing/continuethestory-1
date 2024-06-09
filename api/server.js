@@ -65,12 +65,19 @@ app.get('/api/current-story', async (req, res) => {
   }
 });
 
+// Ruta para manejar 404
+app.use((req, res) => {
+  console.error(`404 - Not Found - ${req.originalUrl}`);
+  res.status(404).json({ message: 'Endpoint not found' });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
 module.exports = app;
+
 
 
 
