@@ -22,8 +22,13 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Importar rutas
-const storyRoutes = require('./routes/story');
+const storyRoutes = require('../server/routes/story');
 app.use('/api', storyRoutes);
+
+// Endpoint de prueba para verificar la API
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API is working!' });
+});
 
 // Ruta para manejar 404
 app.use((req, res) => {
@@ -37,6 +42,9 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
+
+
+
 
 
 
