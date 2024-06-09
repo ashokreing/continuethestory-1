@@ -4,7 +4,7 @@ function StoryViewer() {
   const [story, setStory] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/current-story')  // Usa la URL local
+    fetch('https://continuethestory.vercel.app/api/current-story')  // Usa la URL local
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
