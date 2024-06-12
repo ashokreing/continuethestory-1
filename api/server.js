@@ -9,8 +9,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Conexión a MongoDB
-const uri = process.env.REACT_APP_MONGODB_URI;
-console.log('REACT_APP_MONGODB_URI:', uri);
+const uri = process.env.MONGODB_URI;
+console.log('MONGODB_URI:', uri);
 
 if (!uri) {
   console.error('MONGODB_URI is not defined. Check your .env file.');
