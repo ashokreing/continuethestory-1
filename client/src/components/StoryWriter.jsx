@@ -1,39 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 function StoryWriter() {
-  const [text, setText] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [text, setText] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const maxLength = 280; // Límite de caracteres
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!name || !email) {
-      alert('Please enter your name and email.');
+      alert("Please enter your name and email.");
       return;
     }
 
     try {
-      const response = await fetch('http://localhost:5001/api/submit-part', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5001/api/submit-part", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ part: text, name, email }),
       });
 
       if (response.ok) {
-        setText('');
-        setName('');
-        setEmail('');
-        alert('Your part has been submitted! You will receive an email when the story ends. Thank you!');
+        setText("");
+        setName("");
+        setEmail("");
+        alert(
+          "Your part has been submitted! You will receive an email when the story ends. Thank you!"
+        );
       } else {
-        alert('There was an error submitting your part. Please try again.');
+        alert("There was an error submitting your part. Please try again.");
       }
     } catch (error) {
-      console.error('Error submitting the part:', error);
-      alert('There was an error submitting your part. Please try again.');
+      console.error("Error submitting the part:", error);
+      alert("There was an error submitting your part. Please try again.");
     }
   };
 
@@ -66,18 +68,3 @@ function StoryWriter() {
 }
 
 export default StoryWriter;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

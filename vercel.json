@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/server.js",
+      "src": "server/server.js",
       "use": "@vercel/node"
     },
     {
@@ -16,14 +16,19 @@
   "routes": [
     {
       "src": "/api/(.*)",
+<<<<<<< HEAD
       "dest": "/api/server.js"
+=======
+      "dest": "server/server.js"
+>>>>>>> sergio
     },
     {
       "src": "/(.*)",
-      "dest": "/client/build/$1"
+      "dest": "client/build"
     }
   ]
 }
+<<<<<<< HEAD
 
 
 
@@ -50,3 +55,5 @@
 
 
   
+=======
+>>>>>>> sergio
