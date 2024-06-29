@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 function StoryViewer() {
-  const [story, setStory] = useState('');
-  const [error, setError] = useState('');
+  const [story, setStory] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch('https://continuethestory.vercel.app/api/current-story')
-      .then(response => {
+    // fetch('https://continuethestory.vercel.app/api/current-story')
+    fetch("http://localhost:5001/api/current-story")
+      .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         return response.json();
       })
-      .then(data => setStory(data.currentPart))
-      .catch(error => {
-        console.error('Error fetching story:', error);
-        setError('Error fetching story. Please try again later.');
+      .then((data) => setStory(data.currentPart))
+      .catch((error) => {
+        console.error("Error fetching story:", error);
+        setError("Error fetching story. Please try again later.");
       });
   }, []);
 
@@ -28,19 +29,3 @@ function StoryViewer() {
 }
 
 export default StoryViewer;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
